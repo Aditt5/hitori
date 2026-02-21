@@ -1593,7 +1593,6 @@ module.exports = naze = async (naze, m, msg, store) => {
 			case 'tagall': {
 				if (!m.isGroup) return m.reply(mess.group)
 				if (!m.isAdmin && !isCreator && !isPremium) return m.reply(mess.admin)
-				if (!m.isBotAdmin) return m.reply(mess.botAdmin)
 				let setv = pickRandom(listv)
 				let teks = `*Tag All*\n\n*Pesan :* ${q ? q : ''}\n\n`
 				for (let mem of m.metadata.participants) {
@@ -1605,14 +1604,12 @@ module.exports = naze = async (naze, m, msg, store) => {
 			case 'hidetag': case 'h': {
 				if (!m.isGroup) return m.reply(mess.group)
 				if (!m.isAdmin && !isCreator && !isPremium) return m.reply(mess.admin)
-				if (!m.isBotAdmin) return m.reply(mess.botAdmin)
 				await m.reply(q ? q : '', { mentions: m.metadata.participants.map(a => a.id) })
 			}
 			break
 			case 'totag': {
 				if (!m.isGroup) return m.reply(mess.group)
 				if (!m.isAdmin && !isCreator && !isPremium) return m.reply(mess.admin)
-				if (!m.isBotAdmin) return m.reply(mess.botAdmin)
 				if (!m.quoted) return m.reply(`Reply pesan dengan caption ${prefix + command}`)
 				delete m.quoted.chat
 				await naze.sendMessage(m.chat, { forward: m.quoted.fakeObj(), mentions: m.metadata.participants.map(a => a.id) })
