@@ -1615,6 +1615,20 @@ module.exports = naze = async (naze, m, msg, store) => {
 				await naze.sendMessage(m.chat, { forward: m.quoted.fakeObj(), mentions: m.metadata.participants.map(a => a.id) })
 			}
 			break
+         case "tag":
+			if (!m.isGroup) return m.reply(mess.group)
+			if (!text) return m.reply(`Masukan Teks!!`)
+			naze.sendMessage(m.chat, {
+				text: "@" + m.chat,
+				contextInfo: {
+					mentionedJid: m.metadata.participants.map(a => a.id),
+					groupMentions: [{
+						groupJid: m.chat,
+						groupSubject: q
+					}]
+				}
+			})
+			break
 			case 'listonline': case 'liston': {
 				if (!m.isGroup) return m.reply(mess.group)
 				let id = args && /\d+\-\d+@g.us/.test(args[0]) ? args[0] : m.chat
